@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class Buttons extends Component {
   render() {
-    const { changePage } = this.props;
+    // const { changePage } = this.props;
 
     return (
       <div className="buttons">

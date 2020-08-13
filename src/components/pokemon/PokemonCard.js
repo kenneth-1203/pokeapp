@@ -38,7 +38,7 @@ export default class PokemonCard extends Component {
     return (
       <Link to={`pokemon/${this.state.pokemonIndex}`} style={{ color: 'inherit', textDecoration: 'none' }}>
         <div className="pokemon-card">
-          <h5 className="pokemon-card-title">{this.state.pokemonIndex}</h5>
+          <h6 className="pokemon-card-title">{this.state.pokemonIndex}</h6>
 
           <img src={this.state.imageUrl} alt="" 
           onLoad={() => this.setState({ isLoading: false })}>
