@@ -1,0 +1,106 @@
+@import "../abstracts/variables";
+
+.pokemon {
+  &-card {
+    width: 15rem;
+    height: 11rem;
+    margin: 1rem;
+    border-radius: 10px;
+    border: 1px solid grey;
+    transition: 0.2s;
+
+    &-title {
+      border-bottom: 1px solid grey;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background: rgb(233, 233, 233);
+    }
+
+    &:hover {
+      transition: 0.2s;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &-index {
+    width: 100%;
+    height: 100%;
+    margin-top: 1em;
+    border: 1px solid grey;
+    border-radius: 10px;
+  }
+
+  &-type {
+    &--grass {
+      background: $color-grass;
+    }
+
+    &--water {
+      background: $color-water;
+    }
+
+    &--fire {
+      background: $color-fire;
+    }
+
+    &--poison {
+      background: $color-poison;
+    }
+
+    &--psychic {
+      background: $color-psychic;
+    }
+
+    &--ground {
+      background: $color-ground;
+    }
+
+    &--ice {
+      background: $color-ice;
+    }
+
+    &--rock {
+      background: $color-rock;
+    }
+
+    &--dragon {
+      background: $color-dragon;
+    }
+
+    &--bug {
+      background: $color-bug;
+    }
+
+    &--dark {
+      background: $color-dark;
+    }
+
+    &--fighting {
+      background: $color-fighting;
+    }
+
+    &--ghost {
+      background: $color-ghost;
+    }
+
+    &--steel {
+      background: $color-steel;
+    }
+
+    &--flying {
+      background: $color-flying;
+    }
+
+    &--electric {
+      background: $color-electric;
+    }
+
+    &--fairy {
+      background: $color-fairy;
+    }
+
+    &--normal {
+      background: $color-normal;
+    }
+  }
+}
