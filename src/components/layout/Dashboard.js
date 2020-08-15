@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import PokemonList from "../pokemon/PokemonList";
 import Buttons from '../buttons/Buttons';
 
-import "./layout.scss";
+
 
 // import axios from 'axios';
 

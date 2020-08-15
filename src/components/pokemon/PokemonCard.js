@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import "./pokemon.scss";
-
-import spinner from '../../assets/spinner.gif';
-
-
+import spinner from "../../assets/spinner.gif";
 
 export default class PokemonCard extends Component {
   state = {
@@ -14,7 +10,7 @@ export default class PokemonCard extends Component {
     pokemonIndex: "",
     imageUrl: "",
     isLoading: true,
-    manyRequests: false
+    manyRequests: false,
   };
 
   componentDidMount() {
@@ -36,13 +32,17 @@ export default class PokemonCard extends Component {
 
   render() {
     return (
-      <Link to={`pokemon/${this.state.pokemonIndex}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+      <Link
+        to={`pokemon/${this.state.pokemonIndex}`}
+        style={{ color: "inherit", textDecoration: "none" }}>
+        
         <div className="pokemon-card">
           <h6 className="pokemon-card-title">{this.state.pokemonIndex}</h6>
-
-          <img src={this.state.imageUrl} alt="" 
-          onLoad={() => this.setState({ isLoading: false })}>
-          </img>
+          <img
+            src={this.state.imageUrl}
+            alt=""
+            onLoad={() => this.setState({ isLoading: false })}
+          ></img>
 
           {this.state.isLoading ? (
             <img src={spinner} width="70px" alt=""></img>

@@ -1,6 +1,8 @@
-body {
-    background: url('./assets/background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+@import './sass/base/base';
+@import './sass/base/animations';
+
+@import './sass/abstracts/variables';
+
+@import './sass/layout/layout';
+
+@import './sass/components/pokemon';

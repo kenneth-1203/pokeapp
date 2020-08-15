@@ -3,30 +3,114 @@ import axios from "axios";
 
 import Navbar from "../layout/Navbar";
 
-export default class PokemonPage extends Component {
+
+
+export default class Pokemon extends Component {
   state = {
     name: "",
     pokemonIndex: "",
     imageUrl: "",
     types: [],
-    description: '',
+    description: "",
     stats: {
-      hp: '',
-      attack: '',
-      defense: '',
-      speed: '',
-      specialAtk: '',
-      specialDef: ''
+      hp: "",
+      attack: "",
+      defense: "",
+      speed: "",
+      specialAtk: "",
+      specialDef: "",
     },
-    height: '',
-    weight: '',
-    eggGroup: '',
-    abilities: '',
-    genderRatioMale: '',
-    genderRatioFemale: '',
-    evs: '',
-    hatchSteps: ''
+    height: "",
+    weight: "",
+    eggGroups: "",
+    abilities: "",
+    genderRatioMale: "",
+    genderRatioFemale: "",
+    catchRate: "",
+    evs: "",
+    hatchSteps: "",
   };
+  
+  colorType = (type) => {
+    let color;
+    
+    switch(type) {
+      case 'grass': {
+        color = '#86cf4c';
+        break;
+      }
+      case 'fire': {
+        color = '#ff5643';
+        break;
+      }
+      case 'water': {
+        color = '#56adff';
+        break;
+      }
+      case 'poison': {
+        color = '#a85c9f';
+        break;
+      }
+      case 'electric': {
+        color = '#fee83e';
+        break;
+      }
+      case 'bug': {
+        color = '#c2d21f';
+        break;
+      }
+      case 'dark': {
+        color = '#8e6956';
+        break;
+      }
+      case 'dragon': {
+        color = '#8975ff';
+        break;
+      }
+      case 'flying': {
+        color =  '#79a4ff';
+        break;
+      }
+      case 'ghost': {
+        color = '#7874d5';
+        break;
+      }
+      case 'ground': {
+        color = '#edcb55';
+        break;
+      }
+      case 'psychic': {
+        color = '#f461b0';
+        break;
+      }
+      case 'ice': {
+        color = '#96f1ff';
+        break;
+      }
+      case 'rock': {
+        color = '#cebd72';
+        break; 
+      }
+      case 'steel': {
+        color = '#c4c2db';
+        break;
+      }
+      case 'fairy': {
+        color = '#f9aeff';
+        break;
+      }
+      case 'fighting': {
+        color = '#c67955';
+        break;
+      }
+      case 'normal': {
+        color = '#bcbcac';
+        break;
+      }
+      default: return null;
+    }
+    return color;
+  }
 
   async componentDidMount() {
     const { pokemonIndex } = this.props.match.params;
@@ -41,87 +125,167 @@ export default class PokemonPage extends Component {
     const name = pokemonRes.data.name;
     const imageUrl = pokemonRes.data.sprites.front_default;
 
-    let { hp, attack, defense, speed, specialAtk, specialDef } = '';
+    let { hp, attack, defense, speed, specialAtk, specialDef } = "";
 
-    pokemonRes.data.stats.map(stat => {
-      switch(stat.stat.name) {
-
-        case 'hp': {
+    pokemonRes.data.stats.map((stat) => {
+      switch (stat.stat.name) {
+        case "hp": {
           hp = stat.base_stat;
           break;
-        } 
-        case 'attack': {
+        }
+        case "attack": {
           attack = stat.base_stat;
           break;
-        } 
-        case 'defense': {
+        }
+        case "defense": {
           defense = stat.base_stat;
           break;
         }
-        case 'speed': {
+        case "speed": {
           speed = stat.base_stat;
           break;
         }
-        case 'special-attack': {
+        case "special-attack": {
           specialAtk = stat.base_stat;
           break;
         }
-        case 'speical-defense': {
+        case "speical-defense": {
           specialDef = stat.base_stat;
           break;
         }
-        default: return null;
+        default:
+          return null;
       }
-    })
+      return null;
+    });
 
     // Pokemon Stats
-
-    const height = Math.round((pokemonRes.data.height / 10) * 100) / 100;
-    
-    const weight = Math.round((pokemonRes.data.weight / 10) * 100) / 100;
-    
-    const types = pokemonRes.data.types.map(type => type.type.name);
-
-    const abilities = pokemonRes.data.abilities.map(ability => {
-      
+    const height = Math.round((pokemonRes.data.height / 10) * 100) / 100; // metres
+    const weight = Math.round((pokemonRes.data.weight / 10) * 100) / 100; // kilograms
+    const types = pokemonRes.data.types.map((type) => type.type.name);
+    const abilities = pokemonRes.data.abilities.map((ability) => {
       // Text formatting
-      ability.ability.name.toLowerCase().split('').map(s => s.charAt(0).toUpperCase() + s.substring(1)).join('');
-    })
+      return ability.ability.name
+        .toLowerCase()
+        .split("")
+        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+        .join("");
+    });
 
-    const evs = pokemonRes.data.stats.filter(stat => {
-      if (stat.effort > 0) {
-        return true;
-      }
-      return false;
+    // EVs
+    const evs = pokemonRes.data.stats
+      .filter((stat) => {
+        if (stat.effort > 0) {
+          return true;
+        }
+        return false;
+      })
+      .map((stat) => {
+        // Text formatting
+        return (
+          `${stat.effort} ` +
+          `${stat.stat.name}`
+            .toLowerCase()
+            .split("-")
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(" ")
+        );
+      })
+      .join(", ");
 
-    }).map(stat => {
-
-      // Text formatting
-      return `${stat.effort} ${stat.stat.name}`.toLowerCase().split('').map(s => s.charAt(0).toUpperCase() + s.substring(1)).join('');
-    }).join(', ');
-
-    // Get Pokemon Description, Catch Rate, EggGroups, Gender Ratio, Hatch Steps
-    await axios.get(pokemonSpeciesUrl).then(res => {
+    // Get Pokemon Description, Catch Rate, Egg Groups, Gender Ratio, Hatch Steps
+    await axios.get(pokemonSpeciesUrl).then((res) => {
       let description;
-      
-      res.data.flavor_text_entries.some(flavor => {
+
+      res.data.flavor_text_entries.some((flavor) => {
         if (flavor.language.name === "en") {
           description = flavor.flavor_text;
+          description = description.split("\n").join(" ");
         }
-      })
-    })
-  }
+        return description;
+      });
 
+      // Gender Ratio
+      const femaleRate = res.data.gender_rate;
+      const genderRatioFemale = 12.5 * femaleRate;
+      const genderRatioMale = 12.5 * (8 - femaleRate);
+
+      // Catch Rate
+      const catchRate = Math.round(100 / 255) * res.data.capture_rate;
+
+      // Egg Groups
+      const eggGroups = res.data.egg_groups
+        .map((group) => {
+          return group.name
+            .toLowerCase()
+            .split(" ")
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(" ");
+        })
+        .join(", ");
+
+      // Hatch Steps
+      const hatchSteps = 255 * (res.data.hatch_counter + 1);
+
+      // Setting state
+      this.setState({
+        description,
+        eggGroups,
+        genderRatioMale,
+        genderRatioFemale,
+        catchRate,
+        hatchSteps,
+      });
+
+      this.setState({
+        imageUrl,
+        pokemonIndex,
+        name,
+        types,
+        stats: {
+          hp,
+          attack,
+          defense,
+          speed,
+          specialAtk,
+          specialDef,
+        },
+        height,
+        weight,
+        abilities,
+        evs,
+      });
+    });
+  }
   render() {
     return (
       <div className="container">
         <div className="dashboard">
           <Navbar />
           <div className="container">
-            <div className="row pokemon-index">
-              <div className="col-sm-4">img</div>
-              <div className="col-sm-4"></div>
-              <div className="col-sm-4"></div>
+            <div className="pokemon-index">
+              <div className="d-flex justify-content-between pokemon-info" style={{ background: `linear-gradient(to right, ${this.colorType(this.state.types[0])} 0%, white 100%)` }}>
+                <h5 className="pokemon-name mx-5 mt-2">
+                  {this.state.name
+                    .toLowerCase()
+                    .split(" ")
+                    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                    .join(" ")}
+                </h5>
+                <div className="mx-5 mt-2">
+                  {this.state.types.map((type, i) => {
+                    return (
+                      <span
+                        className={`badge badge-dark badge-pill mx-1 pb-1 pokemon-type--${type}`}
+                        key={i}
+                      >
+                        {type.charAt(0).toUpperCase() + type.substring(1)}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+              <img src={this.state.imageUrl} height="200px" alt="" />
             </div>
           </div>
         </div>

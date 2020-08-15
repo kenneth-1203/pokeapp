@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import PokemonCard from "./PokemonCard";
 import axios from "axios";
+
+import PokemonCard from "./PokemonCard";
+
+
 
 export default class PokemonList extends Component {
   state = {
