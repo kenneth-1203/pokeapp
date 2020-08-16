@@ -149,7 +149,7 @@ export default class Pokemon extends Component {
           specialAtk = stat.base_stat;
           break;
         }
-        case "speical-defense": {
+        case "special-defense": {
           specialDef = stat.base_stat;
           break;
         }
@@ -255,6 +255,7 @@ export default class Pokemon extends Component {
         abilities,
         evs,
       });
+      console.log(this.state.stats)
     });
   }
   render() {
@@ -264,15 +265,18 @@ export default class Pokemon extends Component {
           <Navbar />
           <div className="container">
             <div className="pokemon-index">
-              <div className="d-flex justify-content-between pokemon-info" style={{ background: `linear-gradient(to right, ${this.colorType(this.state.types[0])} 0%, white 100%)` }}>
-                <h5 className="pokemon-name mx-5 mt-2">
+              <div className="d-flex pokemon-info" style={{ background: `linear-gradient(to right, ${this.colorType(this.state.types[0])} 0%, white 100%)` }}>
+                <h5 className="pokemon-id p-2">
+                  {this.state.pokemonIndex}
+                </h5>
+                <h5 className="pokemon-name p-2">
                   {this.state.name
                     .toLowerCase()
                     .split(" ")
                     .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
                     .join(" ")}
                 </h5>
-                <div className="mx-5 mt-2">
+                <div className="ml-auto p-2">
                   {this.state.types.map((type, i) => {
                     return (
                       <span
@@ -285,7 +289,61 @@ export default class Pokemon extends Component {
                   })}
                 </div>
               </div>
-              <img src={this.state.imageUrl} height="200px" alt="" />
+              <div className="container row m-0 p-0">
+                <div className="col-md-4">
+                  <img src={this.state.imageUrl} height="200px" alt=""/>
+                </div>
+                <div className="col-md-8 pt-3">
+                  <div className="row align-items-center">
+                    <div className="col-12 col-md-3">HP</div>
+                    <div className="col-12 col-md-9">
+                      <div className="progress">
+                        <div className="progress-bar bg-success" role="progressbar" style={{ width: `${this.state.stats.hp}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row align-items-center">
+                    <div className="col-12 col-md-3">Attack</div>
+                    <div className="col-12 col-md-9">
+                      <div className="progress">
+                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${this.state.stats.attack}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row align-items-center">
+                    <div className="col-12 col-md-3">SP Attack</div>
+                    <div className="col-12 col-md-9">
+                      <div className="progress">
+                        <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${this.state.stats.specialAtk}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row align-items-center">
+                    <div className="col-12 col-md-3">Defense</div>
+                    <div className="col-12 col-md-9">
+                      <div className="progress">
+                        <div className="progress-bar bg-info" role="progressbar" style={{ width: `${this.state.stats.defense}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row align-items-center">
+                    <div className="col-12 col-md-3">SP Defense</div>
+                    <div className="col-12 col-md-9">
+                      <div className="progress">
+                        <div className="progress-bar bg-info" role="progressbar" style={{ width: `${this.state.stats.specialDef}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row align-items-center">
+                    <div className="col-12 col-md-3">Speed</div>
+                    <div className="col-12 col-md-9">
+                      <div className="progress">
+                        <div className="progress-bar bg-warning" role="progressbar" style={{ width: `${this.state.stats.speed}%` }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
