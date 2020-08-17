@@ -116,8 +116,8 @@ export default class Pokemon extends Component {
     const { pokemonIndex } = this.props.match.params;
 
     // URLs
-    const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
-    const pokemonSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonIndex}/`;
+    const pokemonUrl = `pokemon/${pokemonIndex}/`;
+    const pokemonSpeciesUrl = `pokemon-species/${pokemonIndex}/`;
 
     // Pokemon information
     const pokemonRes = await axios.get(pokemonUrl);

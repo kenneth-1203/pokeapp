@@ -16,7 +16,7 @@ export default class PokemonCard extends Component {
   componentDidMount() {
     const { name, url } = this.props;
     const pokemonIndex = url.split("/")[url.split("/").length - 2];
-    const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/`;
+    const pokemonUrl = `pokemon/`;
 
     fetch(`${pokemonUrl + pokemonIndex}`)
       .then((res) => res.json())
