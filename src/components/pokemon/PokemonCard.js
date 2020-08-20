@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import axios from 'axios';
+
 import spinner from "../../assets/spinner.gif";
 
 export default class PokemonCard extends Component {
@@ -16,16 +18,15 @@ export default class PokemonCard extends Component {
   componentDidMount() {
     const { name, url } = this.props;
     const pokemonIndex = url.split("/")[url.split("/").length - 2];
-    const pokemonUrl = `pokemon/`;
+    const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/`;
 
-    fetch(`${pokemonUrl + pokemonIndex}`)
-      .then((res) => res.json())
+    axios.get(`${pokemonUrl + pokemonIndex}`)
       .then((data) =>
         this.setState({
           name,
           pokemonUrl,
           pokemonIndex,
-          imageUrl: data.sprites.front_default,
+          imageUrl: data.data.sprites.front_default,
         })
       );
   }

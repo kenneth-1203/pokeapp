@@ -7,13 +7,24 @@ import PokemonCard from "./PokemonCard";
 
 export default class PokemonList extends Component {
   state = {
-    url: "pokemon/",
+    url: "https://pokeapi.co/api/v2/pokemon/",
     pokemon: [],
   };
 
-  async componentDidMount() {
-    const res = await axios.get(this.state.url);
-    this.setState({ pokemon: res.data.results });
+  // async componentDidMount() {
+  //   const res = await axios.get(this.state.url);
+  //   this.setState({ pokemon: res.data.results });
+  // }
+
+  componentDidUpdate(props) {
+    const { pokemon } = props;
+
+    if (this.state.pokemon.length) {
+      console.log(pokemon)
+    } else {
+      this.setState({ pokemon })
+      console.log(this.state)
+    }
   }
 
   render() {
@@ -21,13 +32,13 @@ export default class PokemonList extends Component {
       <div className="container pokemon-list">
         {this.state.pokemon ? (
           <div className="d-flex flex-wrap justify-content-center text-center">
-            {this.state.pokemon.map((pokemon) => (
+            {/* {this.state.pokemon.map((pokemon) => (
               <PokemonCard 
                 key={pokemon.name}
                 name={pokemon.name} 
                 url={pokemon.url} 
               />
-            ))}
+            ))} */}
           </div>
         ) : (
           <h3>Loading Pokemon...</h3>

@@ -116,8 +116,8 @@ export default class Pokemon extends Component {
     const { pokemonIndex } = this.props.match.params;
 
     // URLs
-    const pokemonUrl = `pokemon/${pokemonIndex}/`;
-    const pokemonSpeciesUrl = `pokemon-species/${pokemonIndex}/`;
+    const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${pokemonIndex}/`;
+    const pokemonSpeciesUrl = `https://pokeapi.co/api/v2/pokemon-species/${pokemonIndex}/`;
 
     // Pokemon information
     const pokemonRes = await axios.get(pokemonUrl);
@@ -451,14 +451,14 @@ export default class Pokemon extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 pb-3">
                   <div className="row">
                     <div className="col-6">
                       <h6 className="float-right">EVs:</h6>
                     </div>
                     <div className="col-6">
-                      <h6 className="float-left">{this.state.evs.split(', ').map(ev => {
-                        return (<div>{ev}</div>)
+                      <h6 className="float-left">{this.state.evs.split(', ').map((ev, i) => {
+                        return (<div key={i}>{ev}</div>)
                       })}</h6>
                     </div>
                   </div>
