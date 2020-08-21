@@ -25,10 +25,6 @@ export default class Dashboard extends Component {
     })
   }
 
-  getPokemon = () => {
-    return this.state.pokemon;
-  }
-
   changePage = (type) => {
     let url;
     let pokemon;
@@ -66,20 +62,13 @@ export default class Dashboard extends Component {
       
       default: return;
     }
-    setTimeout(
-      function() {
-          console.log(this.state);
-      }
-      .bind(this),
-      500
-  );
   }
   render() {
     return (
       <div className="container">
         <div className="dashboard">
           <Navbar />
-          <PokemonList pokemon={this.getPokemon} />
+          <PokemonList pokemon={this.state.pokemon} />
           <div className="d-flex justify-content-center m-2">
             <Buttons changePage={this.changePage} />
           </div>

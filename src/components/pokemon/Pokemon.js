@@ -257,7 +257,6 @@ export default class Pokemon extends Component {
         abilities,
         evs,
       });
-      console.log(this.state)
     });
   }
   render() {
@@ -267,7 +266,7 @@ export default class Pokemon extends Component {
           <Navbar />
           <div className="container">
             <div className="pokemon-index">
-              <div className="d-flex pokemon-info" style={{ background: `linear-gradient(to right, ${this.colorType(this.state.types[0])} 20%, white 100%)` }}>
+              <div className="d-flex pokemon-info" style={{ background: `linear-gradient(to right, ${this.colorType(this.state.types[0])} 40%, white 80%)` }}>
                 <h5 className="pokemon-id p-2">
                   {this.state.pokemonIndex}
                 </h5>
